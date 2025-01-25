@@ -1,0 +1,316 @@
+fileFormatVersion: 2
+guid: 0145e1b890695f846af1b884b44a1dc4
+ModelImporter:
+  serializedVersion: 21300
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_001
+    second: {fileID: 2100000, guid: 1ab9bfecd4103a5498811e2592635433, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_002
+    second: {fileID: 2100000, guid: 60f858ddf140c98469faf3ac7c0fe409, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_003
+    second: {fileID: 2100000, guid: 0420e71b22a062644968226443ed11d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_004
+    second: {fileID: 2100000, guid: 73c97c8d81084b649a7710cc570a056d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_005
+    second: {fileID: 2100000, guid: dc4f30c40bce5fd479cb347d974ff4c0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_006
+    second: {fileID: 2100000, guid: 19526783d4aa98b4ea694ee3b7f5126e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_007
+    second: {fileID: 2100000, guid: 589203223b180fb4aa03d98b5914b537, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_008
+    second: {fileID: 2100000, guid: c1b9b3f9eb0bad741be8cf7b022b044e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_009
+    second: {fileID: 2100000, guid: 4e1c5dc1209bf404e9448c05a72cc4ea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_010
+    second: {fileID: 2100000, guid: 13843ead1c234fa4a9c98ec1ee6f69a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_011
+    second: {fileID: 2100000, guid: 485233e2f8f432346a9b0f7ed7dde1e4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_012
+    second: {fileID: 2100000, guid: a5f8ac0c0966256418877eb7cea26713, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_013
+    second: {fileID: 2100000, guid: 9cdd22afc0b16ee42923f8fe19cdff05, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_014
+    second: {fileID: 2100000, guid: 8851c4c006b23ed47b71e9542235c930, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_015
+    second: {fileID: 2100000, guid: 7dde4512011552746a33187367a2fddf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_016
+    second: {fileID: 2100000, guid: 03e3beadfadba5a4e888c837907fa6a4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_017
+    second: {fileID: 2100000, guid: ad7ab38ad063a7341a73b00d4cbf14ea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_018
+    second: {fileID: 2100000, guid: 3d83d97329ecbed47a2fe45db924a4f4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_019
+    second: {fileID: 2100000, guid: 8a9e49c49184fb444a6f7ca79787f173, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_020
+    second: {fileID: 2100000, guid: 183b1766480dba9408ec284efaf3f879, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_021
+    second: {fileID: 2100000, guid: 5644733635322604b8d9604cdc4d8708, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_022
+    second: {fileID: 2100000, guid: e19f61c90af6c004e955091d59b7ad38, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_023
+    second: {fileID: 2100000, guid: 7a67a428fe9184b47a9007c24f343f4d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_024
+    second: {fileID: 2100000, guid: 893715e96a97830419c4091354c70baf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_025
+    second: {fileID: 2100000, guid: 5155e956268d3ca45b59b92754fdb19c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_026
+    second: {fileID: 2100000, guid: a4cc7b3564cb28848849ea827f66b110, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_027
+    second: {fileID: 2100000, guid: 719293e6810fc4648b395af2b843dd80, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_028
+    second: {fileID: 2100000, guid: ea9ec2bc2dd1a82408d141a279d8fbee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_029
+    second: {fileID: 2100000, guid: 0ec71c332b649dd46b0fbe76fa783e4d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_030
+    second: {fileID: 2100000, guid: 6a81ece69ad9a0c448f5bce784563e0c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_031
+    second: {fileID: 2100000, guid: 45f61745f8b4ff04a8edd8f35c02f954, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_032
+    second: {fileID: 2100000, guid: 33950eb3e7d9d3942bf511aa3363a2d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_033
+    second: {fileID: 2100000, guid: b78a36fd0243e5046b1e312f60ee0e19, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_034
+    second: {fileID: 2100000, guid: 2ab951f597267e64c82c44939761e42b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_035
+    second: {fileID: 2100000, guid: b0d7bbcc77486bc4cb1c28f073ae9bf0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_036
+    second: {fileID: 2100000, guid: 448038e10afbd9241a439a26d20f6e26, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_037
+    second: {fileID: 2100000, guid: 0a51db84d2b556c438c666d93e9dccc7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_038
+    second: {fileID: 2100000, guid: 816772b2ac021704a8dfb8f0b5eda965, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_039
+    second: {fileID: 2100000, guid: 1515358023d7b2941971bf1fe0acffa2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_040
+    second: {fileID: 2100000, guid: d8bcc137ee9c90e41a16d59841815d4f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_041
+    second: {fileID: 2100000, guid: 3e8635a5c33f4f64daa83c952feb05ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dbl_bus.dxf_042
+    second: {fileID: 2100000, guid: e7e947ac6558cff4cbe6d2532d6b580c, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 3
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

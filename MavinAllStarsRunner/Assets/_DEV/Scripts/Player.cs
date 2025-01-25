@@ -103,7 +103,7 @@ public class Player : MonoBehaviour {
         m_OrigGroundCheckDistance = m_GroundCheckDistance;
         manager = GameObject.Find("Manager").GetComponent<Manager>();
 
-        audioSource = GetComponent<AudioSource>(); 
+        audioSource = manager.audioManager.soundAudioSource[4]; 
     }
     
     
@@ -185,14 +185,14 @@ public class Player : MonoBehaviour {
         if (m_IsGrounded)
         {
             anim.SetBool("Side", right);
-            anim.SetTrigger("JumpSide");
+            //anim.SetTrigger("JumpSide");
 
-            audioSource.PlayOneShot(jumpSideClip);
+            //audioSource.PlayOneShot(jumpSideClip);
         }
         if (crouching)
         {
-            CancelInvoke("stopCrouching");
-            stopCrouching();
+            //CancelInvoke("stopCrouching");
+            //stopCrouching();
         }
         
         RaycastHit hitInfo;
@@ -312,86 +312,6 @@ public class Player : MonoBehaviour {
                     }
                 }
             }
-#else            
-            //Mouse movement
-            if (enableMouseMovement)
-            {
-                if (Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    swiped = false;
-                    fp = Input.mousePosition;
-                    lp = Input.mousePosition;
-                }
-                if (HasMouseMoved())
-                {
-                    lp = Input.mousePosition;
-                }
-                if (Input.GetKeyUp(KeyCode.Mouse0))
-                {
-                    swiped = true;
-                }
-                if (!swiped)
-                {
-                    if ((fp.x - lp.x) > mouseAndTouchMoveDistance) // left swipe
-                    {
-                        swiped = true;
-                        MoveSide(false);
-                    }
-                    else if ((fp.x - lp.x) < -mouseAndTouchMoveDistance) // right swipe
-                    {
-                        swiped = true;
-                        MoveSide(true);
-                    }
-                    else if ((fp.y - lp.y) < -mouseAndTouchMoveDistance) // up swipe
-                    {
-                        if (!m_Jump)
-                        {
-                            swiped = true;
-                            Jump();
-                        }
-                    }
-                    else if ((fp.y - lp.y) > mouseAndTouchMoveDistance) // down swipe
-                    {
-                        if (m_IsGrounded && !crouching)
-                        {
-                            swiped = true;
-                            Crouch();
-                        }
-                    }
-                }
-            }
-
-            //Keyboard movement
-            if (enableKeyboardMovement)
-            {
-                float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
-                float vertical = CrossPlatformInputManager.GetAxis("Vertical");
-
-                Vector3 m_Input = new Vector2(horizontal, vertical);
-
-                if (CrossPlatformInputManager.GetButtonDown("Horizontal") && m_Input.x < 0)
-                {
-                    MoveSide(false);
-                }
-                if (CrossPlatformInputManager.GetButtonDown("Horizontal") && m_Input.x > 0)
-                {
-                    MoveSide(true);
-                }
-                if (CrossPlatformInputManager.GetButtonDown("Vertical") && m_Input.y > 0)
-                {
-                    if (!m_Jump)
-                    {
-                        Jump();
-                    }
-                }
-                if (CrossPlatformInputManager.GetButtonDown("Vertical") && m_Input.y < 0)
-                {
-                    if (m_IsGrounded && !crouching)
-                    {
-                        Crouch();
-                    }
-                }
-            }
 #endif
 
             if (m_IsGrounded)
@@ -469,33 +389,6 @@ public class Player : MonoBehaviour {
 
             manager.cameraTransform.position = Vector3.Lerp(manager.cameraTransform.position, new Vector3(thisTransform.position.x, thisTransform.position.y + cameraPosition.y, thisTransform.position.z + cameraPosition.z), cameraSpeed);*/
         }
-        if (manager.bIsPlayPressed)
-        {
-            if (!manager.cameraLerp)
-            {                                
-                if (manager.pursuitTimeLoc > 0)
-                {
-                    if(!dead)
-                    {
-                        manager.pursuerTransform.position = Vector3.Lerp(manager.pursuerTransform.position, new Vector3(manager.pursuerTransform.position.x, manager.pursuerTransform.position.y, transform.position.z - pursuerPositionOffset), 0.4f);
-                        manager.pursuerTransform.position = Vector3.Lerp(manager.pursuerTransform.position, new Vector3(thisTransform.position.x, thisTransform.position.y, thisTransform.position.z - pursuerPositionOffset), 0.1f);
-                    }
-                    else
-                    {
-                        manager.pursuerTransform.position = Vector3.Lerp(manager.pursuerTransform.position, new Vector3(thisTransform.position.x, thisTransform.position.y, thisTransform.position.z - (pursuerPositionOffset - 1f)), 0.1f);
-                    }
-                }
-                else if (manager.pursuitTimeLoc < -5f)
-                {
-                    manager.pursuerTransform.position = Vector3.Lerp(manager.pursuerTransform.position, new Vector3(thisTransform.position.x, thisTransform.position.y, thisTransform.position.z - 10.0f), 0.1f);
-                }
-
-                if(manager.pursuitTimeLoc > -5f)
-                    manager.pursuitTimeLoc -= Time.fixedDeltaTime;
-            }
-            else
-                manager.pursuerTransform.position = Vector3.Lerp(manager.pursuerTransform.position, new Vector3(thisTransform.position.x, thisTransform.position.y, thisTransform.position.z - pursuerPositionOffset), 0.1f);
-        }
     }
 
     protected virtual void CheckGroundStatus()
@@ -533,7 +426,7 @@ public class Player : MonoBehaviour {
         if (jump)
         {
             // jump!
-            audioSource.PlayOneShot(jumpClip);
+            //audioSource.PlayOneShot(jumpClip);
             m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_JumpPower * jumpMultiplier, m_Rigidbody.velocity.z);
             m_IsGrounded = false;
             m_GroundCheckDistance = 0.1f;
@@ -552,7 +445,8 @@ public class Player : MonoBehaviour {
 
                 if (bonus.sound != null)
                 {
-                    audioSource.PlayOneShot(bonus.sound);
+                    //TODO : change audiosource
+                    //audioSource.PlayOneShot(bonus.sound);
                 }
 
                 if (bonus.isCoin)
@@ -580,7 +474,8 @@ public class Player : MonoBehaviour {
 
     protected virtual void GameOver()
     {
-        audioSource.PlayOneShot(gameOverClip);
+        //TODO : change audio source
+       // audioSource.PlayOneShot(gameOverClip);
         
         dead = true;
         m_IsGrounded = true;

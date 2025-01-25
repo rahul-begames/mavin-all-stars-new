@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 
 
@@ -9,7 +10,7 @@ public class AudioManager : MonoBehaviour
    
 
     public AudioClip[] artistMusic;
-
+    
 
     public void ButtonClickSound(int soundNumber)
     {

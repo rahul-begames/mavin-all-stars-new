@@ -48,6 +48,7 @@ public class Manager : MonoBehaviour {
     [HideInInspector]public int selectedCharacterNumber;
     public int selectedLevelNumber;
     public GameObject[] levelGo;
+    public GameObject[] menuBGlevelGo;
     public List<GameObject> levels = new List<GameObject>();
     public GameObject menuLevel;
     
@@ -56,9 +57,7 @@ public class Manager : MonoBehaviour {
 
     protected Vector3 cameraPos;
     protected Quaternion cameraRot;
-
-    [HideInInspector]
-    public Transform pursuerTransform;
+    
 
     [HideInInspector]
     public bool cameraLerp;
@@ -214,6 +213,8 @@ public class Manager : MonoBehaviour {
         selectedLevelNumber = PlayerPrefs.GetInt("CurrentLevel");
         
         levels.Clear(); 
+        
+        
 
         // Get all child objects of the selected level parent
         Transform selectedLevelParent = levelGo[selectedLevelNumber].transform;
@@ -305,8 +306,8 @@ public class Manager : MonoBehaviour {
 
     protected virtual void CreateMenuScene()
     {
-        GameObject menuLvl = Instantiate(menuLevel);
-        menuLvl.SetActive(true);
+        
+        SwitchMenuBGLevel();
         
         //Switch To PreRun Camera
         if (DefaultCam_CM != null)
@@ -315,9 +316,9 @@ public class Manager : MonoBehaviour {
 
         //player = Instantiate(characterSkins[PlayerPrefs.GetInt("CharacterSkin")], menuLvl.transform.Find("StartPosition").position, Quaternion.identity).GetComponent<Player>();
         startPlayerSpeed = player.speed;
-        pursuer = menuLvl.transform.Find(pursuerGameObjName).gameObject;
+        /*pursuer = menuLvl.transform.Find(pursuerGameObjName).gameObject;
         pursuer.transform.SetParent(transform.parent);
-        pursuerTransform = pursuer.transform;
+        pursuerTransform = pursuer.transform;*/
 
         //cameraTransform.position = cameraPos;
         //cameraTransform.rotation = cameraRot;
@@ -372,6 +373,18 @@ public class Manager : MonoBehaviour {
         }
         
         PlayerPrefs.SetInt("CurrentLevel",selectedLevelNumber);
+    }
+
+    public void SwitchMenuBGLevel()
+    {
+        menuLevel.SetActive(true);
+        // Disable all menu backgrounds
+        foreach (GameObject bg in menuBGlevelGo)
+        {
+            bg.SetActive(false);
+        }
+        // Enable the selected level background
+        menuBGlevelGo[selectedLevelNumber].SetActive(true);
     }
 
     public void SwitchCharacter()

@@ -277,6 +277,8 @@ public class UIManager : MonoBehaviour
         // Disable all character selection ui GameObjects first
         _manager.SwitchCharacter();
         _manager.SwitchLevel();
+        _manager.SwitchMenuBGLevel();
+        
         
         
     }
@@ -478,13 +480,10 @@ public class UIManager : MonoBehaviour
         SettingsPanel_Transform.gameObject.SetActive(true);
        
         SettingsPanel_Transform.GetComponent<CanvasGroup>().alpha = 0;
-        SettingsPanel_Transform.GetComponent<RectTransform>().transform.localPosition = new Vector3(0f,-1000f,0f);
-        SettingsPanel_Transform.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0f, 0f), 1f, false).
-            SetEase(Ease.OutElastic).OnComplete(() =>
-            {
-                Time.timeScale = 0;
-            });
-        SettingsPanel_Transform.GetComponent<CanvasGroup>().DOFade(1, 0.4f);
+        SettingsPanel_Transform.GetComponent<CanvasGroup>().DOFade(1, 0.4f).OnComplete(() =>
+        {
+            Time.timeScale = 0;
+        });;
 
         /*if (_audioFiles.SpecialVehicleSFX.isPlaying)
             _audioFiles.SpecialVehicleSFX.volume = 0;*/
