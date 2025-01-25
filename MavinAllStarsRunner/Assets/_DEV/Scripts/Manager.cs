@@ -247,6 +247,8 @@ public class Manager : MonoBehaviour {
         uiManager.ObjectiveUIPanel.DOMoveX(3000, 0.8f).SetEase(Ease.InOutQuad).SetRelative(true);
         
         uiManager.pauseMenuGamePanel.SetActive(true);
+        uiManager.closeBtn.SetActive(false);
+
         
         StartCoroutine(DelayPlayGame());
         
@@ -674,18 +676,12 @@ public class Manager : MonoBehaviour {
         #endregion
 
         //uiManager.VehicleModeTimerImage.GetComponent<UIShiny>().enabled = true;
-        if (uiManager.VehicleModeTimerImage != null)
-        {
-            for (int i = 0; i < uiManager.VehicleModeTimerImage.Length; i++)
+        uiManager.VehicleModeTimerImage.DOFillAmount(0, 10f)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
             {
-                uiManager.VehicleModeTimerImage[i].DOFillAmount(0, 10f)
-                    .SetEase(Ease.Linear)
-                    .OnComplete(() =>
-                    {
-                        Debug.Log("Tween Completed for index " + i);
-                    });
-            }
-        }
+                
+            });
 
 
         yield return new WaitForSeconds(10f);
@@ -698,4 +694,46 @@ public class Manager : MonoBehaviour {
 
     
     }
+
+    #region AbilityRegion
+
+    public void AbilityTriggered()
+    {
+        //check if ability is already not full(3 counter)
+        
+        //play sound
+        
+        //increase value ui 
+        
+        //play ps on the player
+    }
+
+    #endregion
+
+    #region MavinModeRegion
+
+    public void MavinTriggered()
+    {
+        //check if ability is already not full(3 counter)
+        
+        //play sound
+        
+        //increase value ui 
+        
+        //play ps on the player
+    }
+
+    #endregion
+
+    public void CoinTriggered()
+    {
+        //play sound
+        
+        //increase value ui 
+        
+        //play ps on the player
+    }
+
+    
+    
 }

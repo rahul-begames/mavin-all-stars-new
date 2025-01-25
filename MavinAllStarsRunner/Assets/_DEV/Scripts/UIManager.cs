@@ -1,4 +1,5 @@
 
+using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -29,6 +30,7 @@ public class UIManager : MonoBehaviour
     public Sprite onSprite;
     public Sprite offSprite;
     public GameObject pauseMenuGamePanel;
+    public GameObject closeBtn;
 
     [Header("BoomboxPanel")] 
     public TextMeshProUGUI musicTXT;
@@ -58,6 +60,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI coinGameTXT;
     public TextMeshProUGUI topRunTXT;
     public TextMeshProUGUI currentDistanceTXT;
+    public TextMeshProUGUI countdownTXT;
     
     private Manager _manager;
     private AudioManager _audioManager;
@@ -82,7 +85,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Vehicle Mode Variables")] 
     public Button VehicleModeBtn;
-    public Image[] VehicleModeTimerImage;
+    public Image VehicleModeTimerImage;
     
 
     private void Start()
@@ -342,6 +345,7 @@ public class UIManager : MonoBehaviour
     {
         CharWorldPanel.gameObject.SetActive(false);
         pauseMenuGamePanel.SetActive(false);
+        closeBtn.SetActive(true);
         GameUIPanel.gameObject.SetActive(false);
         MenuUIPanel.gameObject.SetActive(true);
         TopBGPanel.gameObject.SetActive(true);
@@ -465,6 +469,77 @@ public class UIManager : MonoBehaviour
 
         // Store the selected level number
        _manager.selectedLevelNumber = levelIndex;
+    }
+    
+    public void PauseGame()
+    {
+        
+        _manager.bIsPlayPressed = false;
+        SettingsPanel_Transform.gameObject.SetActive(true);
+       
+        SettingsPanel_Transform.GetComponent<CanvasGroup>().alpha = 0;
+        SettingsPanel_Transform.GetComponent<RectTransform>().transform.localPosition = new Vector3(0f,-1000f,0f);
+        SettingsPanel_Transform.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0f, 0f), 1f, false).
+            SetEase(Ease.OutElastic).OnComplete(() =>
+            {
+                Time.timeScale = 0;
+            });
+        SettingsPanel_Transform.GetComponent<CanvasGroup>().DOFade(1, 0.4f);
+
+        /*if (_audioFiles.SpecialVehicleSFX.isPlaying)
+            _audioFiles.SpecialVehicleSFX.volume = 0;*/
+    }
+    
+    public void UnPauseGame()
+    {
+        
+        StartCoroutine(StartUnPauseCountdown());
+        
+        
+    }
+    
+    
+    private IEnumerator StartUnPauseCountdown()
+    {
+        SettingsPanel_Transform.gameObject.SetActive(true);
+       
+        SettingsPanel_Transform.GetComponent<CanvasGroup>().alpha = 1;
+        SettingsPanel_Transform.GetComponent<RectTransform>().transform.localPosition = new Vector3(0f,0f,0f);
+        SettingsPanel_Transform.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0f, 0f), 1f, false)
+            .SetEase(Ease.InOutQuint).SetUpdate(true).OnComplete((delegate
+            {
+                SettingsPanel_Transform.gameObject.SetActive(false);
+            }));;
+        SettingsPanel_Transform.GetComponent<CanvasGroup>().DOFade(0, 0.7f).SetUpdate(true);
+
+        yield return new WaitForSecondsRealtime(0.2f);
+
+        for (int i = 3; i > 0; i--)
+        {
+            countdownTXT.text = i.ToString();
+            yield return new WaitForSecondsRealtime(0.5f);
+        }
+
+        countdownTXT.text = "";
+        Time.timeScale = 1;
+        _manager.bIsPlayPressed = true;
+        
+        /*if (_audioFiles.SpecialVehicleSFX.volume == 0)
+            _audioFiles.SpecialVehicleSFX.volume = 0.4f;*/
+        
+        #region MusicRegion
+        
+        PlayerPrefs.SetFloat("MusicValue",musicVolumeSlider.value);
+            
+        foreach (var sfxAs in  _audioManager.soundAudioSource)
+        {
+            PlayerPrefs.SetFloat("SFXValue",soundVolumeSlider.value);
+        }
+           
+        PlayerPrefs.SetInt("IsHapticOn", hapticTXT.text == "ON" ? 1 : 0);
+        PlayerPrefs.Save();
+            
+        #endregion
     }
 
     

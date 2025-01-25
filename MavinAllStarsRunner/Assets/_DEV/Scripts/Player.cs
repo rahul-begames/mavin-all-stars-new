@@ -558,24 +558,15 @@ public class Player : MonoBehaviour {
                 if (bonus.isCoin)
                 {
                     coins += (int)(bonus.multiplier * coinsMultiplier);
+                    manager.CoinTriggered();
                 }
-                else if (bonus.isTimeMultiplier)
+                else if (bonus.isAbility)
                 {
-                    if(timeMultiplier < bonus.multiplier)
-                        timeMultiplier = bonus.multiplier;
-                    timeMultiplierTime += bonus.time;
+                    manager.AbilityTriggered();
                 }
-                else if (bonus.isCoinsMultiplier)
+                else if (bonus.isMavinMode)
                 {
-                    if (coinsMultiplier < bonus.multiplier)
-                        coinsMultiplier = bonus.multiplier;
-                    coinsMultiplierTime += bonus.time;
-                }
-                else if (bonus.isJumpMultiplier)
-                {
-                    if (jumpMultiplier < bonus.multiplier)
-                        jumpMultiplier = bonus.multiplier;
-                    jumpMultiplierTime += bonus.time;
+                    manager.MavinTriggered();
                 }
 
                 other.GetComponent<Collider>().enabled = false;
@@ -585,29 +576,7 @@ public class Player : MonoBehaviour {
             }
         }
     }
-
-    public virtual void SaveRecords()
-    {                
-        /*PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + coins);
-        manager.uiManager.coinTXT.text = (PlayerPrefs.GetInt("Coins")).ToString();
-        
-
-        coins = 0;
-
-        //manager.gameOverScoreTxt.text = (time * timeScoreMultiplier).ToString("F0");
-
-        if (float.Parse(manager.maxTimeScore.text) < (time * timeScoreMultiplier))
-        {
-            manager.maxTimeScore.text = (time * timeScoreMultiplier).ToString("F0");
-            manager.congratulationsTxt.enabled = true;
-
-            PlayerPrefs.SetFloat("MaxTimeScore", (time * timeScoreMultiplier));
-        }
-        else
-            manager.congratulationsTxt.enabled = false;
-
-        PlayerPrefs.Save();*/
-    }
+    
 
     protected virtual void GameOver()
     {
@@ -618,8 +587,7 @@ public class Player : MonoBehaviour {
         anim.SetBool("GameOver", true);
         
         manager.Crashed();
-
-        SaveRecords();
+        
     }
 
     protected virtual void OnCollisionEnter(Collision other)

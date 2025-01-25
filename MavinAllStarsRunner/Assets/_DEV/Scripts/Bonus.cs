@@ -5,12 +5,10 @@ using UnityEngine;
 public class Bonus : MonoBehaviour {
 
     public bool isCoin;
-    public bool isTimeMultiplier;
-    public bool isCoinsMultiplier;
-    public bool isJumpMultiplier;
+    public bool isMavinMode;
+    public bool isAbility;
 
     public float multiplier = 1f;
-    public float time = 10f;
     public float appearanceChance = 1;
 
     public AudioClip sound;
