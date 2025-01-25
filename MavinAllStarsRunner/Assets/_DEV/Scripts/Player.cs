@@ -590,13 +590,13 @@ public class Player : MonoBehaviour {
 
     public virtual void SaveRecords()
     {                
-        PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + coins);
+        /*PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + coins);
         manager.uiManager.coinTXT.text = (PlayerPrefs.GetInt("Coins")).ToString();
         
 
         coins = 0;
 
-        manager.gameOverScoreTxt.text = (time * timeScoreMultiplier).ToString("F0");
+        //manager.gameOverScoreTxt.text = (time * timeScoreMultiplier).ToString("F0");
 
         if (float.Parse(manager.maxTimeScore.text) < (time * timeScoreMultiplier))
         {
@@ -608,7 +608,7 @@ public class Player : MonoBehaviour {
         else
             manager.congratulationsTxt.enabled = false;
 
-        PlayerPrefs.Save();
+        PlayerPrefs.Save();*/
     }
 
     protected virtual void GameOver()
@@ -618,6 +618,8 @@ public class Player : MonoBehaviour {
         dead = true;
         m_IsGrounded = true;
         anim.SetBool("GameOver", true);
+        
+        manager.Crashed();
 
         SaveRecords();
     }

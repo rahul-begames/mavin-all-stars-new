@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -63,10 +64,19 @@ public class UIManager : MonoBehaviour
     [Header("Misc")]
     public Transform TapToPlayImageTransform;
     public Transform fortuneWheelWindow;
+    
+    [Header("All UI Panels")]
     public Transform MenuUIPanel;
     public Transform GameUIPanel;
+    public Transform ReviveUIPanel;
     public Transform TopBGPanel;
     public Transform ObjectiveUIPanel;
+
+    [Header("Revive Panel Dets")] 
+    public TextMeshProUGUI reviveMultipliertxt;
+    public Image crashScreen;
+    public Button noThanksBtns;
+    public Button getUpWithHeartsBtn;
     
 
     private void Start()
@@ -323,55 +333,61 @@ public class UIManager : MonoBehaviour
         pauseMenuGamePanel.SetActive(false);
         GameUIPanel.gameObject.SetActive(false);
         MenuUIPanel.gameObject.SetActive(true);
+        TopBGPanel.gameObject.SetActive(true);
         ObjectiveUIPanel.gameObject.SetActive(false);
         //menu ui initial setup to left
         foreach (Transform menu in LHSMenu)
         {
-            menu.DOMoveX(-3000, 0f).SetEase(Ease.InQuart).SetRelative(true);
+            menu.DOMoveX(-3000, 0f).SetEase(Ease.InOutQuad).SetRelative(true);
         }
         foreach (Transform menu in RHSMenu)
         {
-            menu.DOMoveX(3000, 0f).SetEase(Ease.InQuart).SetRelative(true);
+            menu.DOMoveX(3000, 0f).SetEase(Ease.InOutQuad).SetRelative(true);
         }
         foreach (Transform menu in TOPMenu)
         {
-            menu.DOMoveY(3000, 0f).SetEase(Ease.InQuart).SetRelative(true);
+            menu.DOMoveY(3000, 0f).SetEase(Ease.InOutQuad).SetRelative(true);
         }
         foreach (Transform menu in LHSMenu)
         {
-            menu.DOMoveX(3000, 1.0f).SetEase(Ease.InQuart).SetRelative(true);
+            
+            menu.DOMoveX(3000, 0.8f).SetEase(Ease.InOutQuad).SetRelative(true);
         }
         foreach (Transform menu in RHSMenu)
         {
-            menu.DOMoveX(-3000, 1.0f).SetEase(Ease.InQuart).SetRelative(true);
+            menu.DOMoveX(-3000, 0.8f).SetEase(Ease.InOutQuad).SetRelative(true);
         }
         foreach (Transform menu in TOPMenu)
         {
-            menu.DOMoveY(-3000, 1.0f).SetEase(Ease.InQuart).SetRelative(true);
+            menu.DOMoveY(-3000, 0.8f).SetEase(Ease.InOutQuad).SetRelative(true);
         }
         
-        ObjectiveUIPanel.DOMoveX(-3000, 0f).SetEase(Ease.InQuart).SetRelative(true);
+        ObjectiveUIPanel.DOMoveX(-3000, 0f).SetEase(Ease.InOutQuad).SetRelative(true);
+        
+        
+        
+        crashScreen.DOFade(0f, 0f);
     }
 
     public void RemoveMenuUIAddGameUI()
     {
         
-        LHSGame.DOMoveX(-3000, 0f).SetEase(Ease.OutQuart).SetRelative(true);
-        RHSGame.DOMoveX(3000, 0f).SetEase(Ease.OutQuart).SetRelative(true);
-        CentreGame.DOMoveX(-3000, 0f).SetEase(Ease.OutQuart).SetRelative(true);
+        LHSGame.DOMoveX(-3000, 0f).SetEase(Ease.InOutQuad).SetRelative(true);
+        RHSGame.DOMoveX(3000, 0f).SetEase(Ease.InOutQuad).SetRelative(true);
+        CentreGame.DOMoveX(-3000, 0f).SetEase(Ease.InOutQuad).SetRelative(true);
         
         foreach (Transform menu in LHSMenu)
         {
-            menu.DOMoveX(-3000, 1.3f).SetEase(Ease.OutQuart).SetRelative(true);
+            menu.DOMoveX(-3000, 0.8f).SetEase(Ease.InOutQuad).SetRelative(true);
         }
         foreach (Transform menu in RHSMenu)
         {
-            menu.DOMoveX(3000, 1.3f).SetEase(Ease.OutQuart).SetRelative(true);
+            menu.DOMoveX(3000, 0.8f).SetEase(Ease.InOutQuad).SetRelative(true);
         }
         foreach (Transform menu in TOPMenu)
         {
-            menu.DOMoveY(3000, 1.3f)
-                .SetEase(Ease.OutQuart)
+            menu.DOMoveY(3000, 0.8f)
+                .SetEase(Ease.InOutQuad)
                 .SetRelative(true)
                 .OnComplete(() => 
                 {
@@ -384,16 +400,14 @@ public class UIManager : MonoBehaviour
     public void GameUIDTSetup()
     {
       
-        ObjectiveUIPanel.DOMoveX(3000, 0.8f).SetEase(Ease.OutQuart).SetRelative(true).OnComplete(() => 
+        ObjectiveUIPanel.DOMoveX(3000, 0.8f).SetEase(Ease.InOutQuad).SetRelative(true).OnComplete(() => 
         {
             ObjectiveUIPanel.gameObject.SetActive(false);
             GameUIPanel.gameObject.SetActive(true);
             
-            Debug.Log("No adding");
-            
-            LHSGame.DOMoveX(3000, 0.5f).SetEase(Ease.InQuart).SetRelative(true);
-            RHSGame.DOMoveX(-3000, 0.5f).SetEase(Ease.InQuart).SetRelative(true);
-            CentreGame.DOMoveX(3000, 0.5f).SetEase(Ease.InQuart).SetRelative(true);
+            LHSGame.DOMoveX(3000, 0.8f).SetEase(Ease.InOutQuad).SetRelative(true);
+            RHSGame.DOMoveX(-3000, 0.58f).SetEase(Ease.InOutQuad).SetRelative(true);
+            CentreGame.DOMoveX(3000, 0.8f).SetEase(Ease.InOutQuad).SetRelative(true);
         });
         
         

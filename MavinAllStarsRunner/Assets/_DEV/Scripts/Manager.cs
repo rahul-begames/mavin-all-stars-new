@@ -82,6 +82,7 @@ public class Manager : MonoBehaviour {
 
     [Header("CinemachineCameras")] 
     public CinemachineVirtualCamera DefaultCam_CM;
+    public CinemachineVirtualCamera DeathCam_CM;
     public CinemachineVirtualCamera SlideCam_CM;
     public CinemachineVirtualCamera PreRunCam_CM;
 
@@ -123,8 +124,7 @@ public class Manager : MonoBehaviour {
         PlayerPrefs.SetInt("HealthValue", 100);
 
         TapToPlayDT(uiManager.TapToPlayImageTransform);
-
-        CinematicPartOne();
+        
         
         SetInitialUIValues();
 
@@ -142,11 +142,7 @@ public class Manager : MonoBehaviour {
     {
         TapToPlayDT(uiManager.TapToPlayImageTransform);
     }
-
-    void CinematicPartOne()
-    {
-        //TODO : with dotween animate and show objective -> reach concert with maximum followers
-    }
+    
 
     void SetInitialUIValues()
     {
@@ -197,33 +193,11 @@ public class Manager : MonoBehaviour {
         
     }
     
-
-    public virtual void Menu()
-    {
-        play = false;
-        cameraLerp = false;
-
-        player.SaveRecords();
-        
-
-        ClearScene();
-        
-        CreateMenuScene();
-
-        if(IsInvoking("StopCameraLerp"))
-            CancelInvoke("StopCameraLerp");
-    }
-
-    public virtual void SetLayer(Transform trans, int layer) 
-    {
-        trans.gameObject.layer = layer;
-        foreach(Transform child in trans)
-            SetLayer(child, layer);
-    }
+    
+    
 
     public void SetCharacter()
     {
-        
         
         //disable all characters
         for (int i = 0; i < mavinCharacters.Length; i++)
@@ -231,13 +205,13 @@ public class Manager : MonoBehaviour {
             mavinCharacters[i].SetActive(false);
         }
 
-        //TODO:setup player prefs
+        //setup player prefs
         
         selectedCharacterNumber = PlayerPrefs.GetInt("CurrentStar");
         selectedCharacter = mavinCharacters[selectedCharacterNumber];
         selectedCharacter.SetActive(true);
         
-        //TODO : set character avatar
+        //set character avatar
         charAnimator.avatar = charAvatars[selectedCharacterNumber];
 
     }
@@ -253,7 +227,7 @@ public class Manager : MonoBehaviour {
         audioManager.soundAudioSource[1].Play();
         
         uiManager.ObjectiveUIPanel.gameObject.SetActive(true);
-        uiManager.ObjectiveUIPanel.DOMoveX(3000, 1.3f).SetEase(Ease.InQuart).SetRelative(true);
+        uiManager.ObjectiveUIPanel.DOMoveX(3000, 0.8f).SetEase(Ease.InOutQuad).SetRelative(true);
         
         uiManager.pauseMenuGamePanel.SetActive(true);
         
@@ -263,8 +237,6 @@ public class Manager : MonoBehaviour {
         
        // GamePanels.SetActive(true);
        
-       
-
        
     }
 
@@ -292,14 +264,7 @@ public class Manager : MonoBehaviour {
         DataUpdate();
         
     }
-
-    protected virtual void FixedUpdate()
-    {
-        if(cameraLerp)
-        {
-            //cameraTransform.rotation = Quaternion.Lerp(cameraTransform.rotation, Quaternion.Euler(player.cameraRotation), 0.15f);           
-        }
-    }
+    
 
     protected virtual void StopCameraLerp()
     {
@@ -317,22 +282,7 @@ public class Manager : MonoBehaviour {
         Time.timeScale = Time.timeScale == 0 ? 1 : 0;
         
     }
-
-    protected virtual void ClearScene()
-    {
-        timeScore.text = "0";
-        coinsScore.text = "0";
-
-        Level[] levelsLoc = GameObject.FindObjectsOfType<Level>();
-
-        for (int i = 0; i < levelsLoc.Length; i++)
-        {
-            Destroy(levelsLoc[i].transform.parent.gameObject);
-        }
-
-        Destroy(player.gameObject);
-        Destroy(pursuer.gameObject);
-    }
+    
 
     protected virtual void CreateMenuScene()
     {
@@ -354,15 +304,7 @@ public class Manager : MonoBehaviour {
         //cameraTransform.rotation = cameraRot;
     }
 
-    public virtual void PlayAgain()
-    {
-      
-        ClearScene();
-
-        CreateMenuScene();
-
-        Play();
-    }
+   
 
     public void DataUpdate()
     {
@@ -448,4 +390,155 @@ public class Manager : MonoBehaviour {
         // Use Invoke with a string method reference and delay
         Invoke(nameof(DelayedRotationCall), 5f);
     }
+
+    public void ResumeGame()
+    {
+        
+    }
+
+    public void RestartGame()
+    {
+        
+    }
+
+    public void ReturnToMenu()
+    {
+        
+    }
+
+    public void Crashed()
+    {
+        //default values
+        uiManager.noThanksBtns.GetComponent<CanvasGroup>().DOFade(0, 0f);
+        uiManager.noThanksBtns.interactable = false;
+        
+        //TODO : haptic feedback
+        //GameManager.Instance.VibrateOnce(0.2f,0.4f);
+
+        
+        //TODO : Crash SFX
+       
+        
+        //pause music
+        if (audioManager.musicAudioSource.isPlaying)
+        {
+            audioManager.musicAudioSource.Pause();
+        }
+
+        
+        if (DefaultCam_CM != null)
+            if (PreRunCam_CM != null)
+                CinemachineExtensionClass.SwitchCineCamera(DefaultCam_CM,DeathCam_CM);
+        
+        
+        
+        //condition for busted and revive + in detail for both
+        uiManager.ReviveUIPanel.gameObject.SetActive(true);
+       
+        uiManager.ReviveUIPanel.GetComponent<CanvasGroup>().alpha = 0;
+        uiManager.ReviveUIPanel.GetComponent<CanvasGroup>().DOFade(1, 0.8f).SetDelay(1f);
+        
+        uiManager.reviveMultipliertxt.text = PlayerPrefs.GetInt("HealthValue")+1.ToString();
+        
+
+       Invoke(nameof(ReviveTimerAfterCrashed),10f);
+       
+       
+       if (PlayerPrefs.GetInt("HealthValue") >= 1)
+        {
+            uiManager.getUpWithHeartsBtn.gameObject.SetActive(true);
+        }
+        else
+        {
+            uiManager.getUpWithHeartsBtn.gameObject.SetActive(false);
+        }
+            
+        
+        
+        //TODO : screen shake
+
+        //TODO : red screen
+        uiManager.crashScreen.DOFade(1f, 1f);
+        
+        
+        Invoke(nameof(DisableFromCrashMethod), 1f);
+        
+        
+    }
+
+    void ReviveTimerAfterCrashed()
+    {
+        uiManager.noThanksBtns.GetComponent<CanvasGroup>().DOFade(1, 0.5f);
+        uiManager.noThanksBtns.interactable = true;
+    }
+
+    void DisableFromCrashMethod()
+    {
+        //TODO : screen shake off
+        
+        
+        //TODO : red screen
+        uiManager.crashScreen.DOFade(0f, 3f).SetDelay(1f);
+        
+    }
+
+    #region RevivePanel Buttons
+
+    public void ContinuePostCrash(bool withAds)
+    {
+        if (withAds)
+        {
+            //TODO : Ad setup and then revive
+        }
+        else
+        {
+            //TODO : revive and reduce one heart
+            if (PlayerPrefs.GetInt("AllLives", 3) > 0)
+                PlayerPrefs.SetInt("AllLives", PlayerPrefs.GetInt("AllLives", 3) - 1);
+
+            Time.timeScale = 1;
+            uiManager.ReviveUIPanel.gameObject.SetActive(false);
+
+            /*yield return StartCoroutine(ReviveCountdown());
+            yield return new WaitForSeconds(0.5f);
+
+            levelParticleEffects.highSmoke.Play();
+            levelParticleEffects.immunityEffect.Play();
+
+            _endlessRunnerCameras._CineMachines.deathCam.gameObject.SetActive(false);
+            _endlessRunnerCameras._CineMachines.mainCam.gameObject.SetActive(true);
+
+            currentCollider.SetActive(false);
+            _uiManager._ingameUIParentGO.SetActive(true);
+
+            yield return new WaitForSeconds(0.6f);
+
+            isGameOver = false;
+            isGameStarted = true;
+
+            if (isNormal)
+                selectedPlayer.GetComponent<Animator>().SetInteger("moveValue", 1);
+
+            _playerManager.transform.GetComponent<Rigidbody>().isKinematic = false;
+            _audioFiles.MusicAS.Play();
+            _playerManager.GetComponent<Rigidbody>().constraints =
+                ~RigidbodyConstraints.FreezeAll | RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX;
+
+            yield return new WaitForSeconds(2f);
+
+            currentCollider.SetActive(true);
+            levelParticleEffects.immunityEffect.Stop();
+
+            isGetUpPressed = false;
+            immunityON = false;*/
+        }
+    }
+
+
+    public void NoThanksButton()
+    {
+        //TODO : exit to menu but save all dets
+    }
+
+    #endregion
 }
