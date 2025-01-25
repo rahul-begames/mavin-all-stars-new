@@ -17,7 +17,10 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI characterAbilityDetailsTxt;
     public GameObject[] characterSelectionGO;
     public Transform AbilityDetailsPanel_Transform;
-
+    public Button[] LevelSelectedBtn;
+    
+    
+    
     [Header("SettingsPanel")] 
     public Transform SettingsPanel_Transform;
     public Slider musicVolumeSlider;
@@ -256,6 +259,8 @@ public class UIManager : MonoBehaviour
     {
         DoTweenUtilityClass.OpenPanelDT(CharWorldPanel);
         SetInitialCharacter();
+        InitializeSelectedLevelUI();
+        
     }
 
     public void CloseCharacterPanel()
@@ -264,7 +269,9 @@ public class UIManager : MonoBehaviour
         //TODO : turn of character image and change character and levels in real scene
         
         // Disable all character selection ui GameObjects first
-        _manager.NewCharacterLevel();
+        _manager.SwitchCharacter();
+        _manager.SwitchLevel();
+        
         
     }
 
@@ -330,6 +337,7 @@ public class UIManager : MonoBehaviour
     
     void SetInitialMenu()
     {
+        CharWorldPanel.gameObject.SetActive(false);
         pauseMenuGamePanel.SetActive(false);
         GameUIPanel.gameObject.SetActive(false);
         MenuUIPanel.gameObject.SetActive(true);
@@ -411,6 +419,48 @@ public class UIManager : MonoBehaviour
         });
         
         
+    }
+    
+    public void InitializeSelectedLevelUI()
+    {
+        //TODO : add haptic feedback when selected, lock icon setup, prices and everything write and setup, feedback when level unlocked
+        // Loop through all the buttons and particle systems
+        for (int i = 0; i < LevelSelectedBtn.Length; i++)
+        {
+            if (i == _manager.selectedLevelNumber)
+            {
+                LevelSelectedBtn[i].interactable = false; // Disable the initially selected button
+                
+            }
+            else
+            {
+                LevelSelectedBtn[i].interactable = true; // Enable other buttons
+                
+            }
+        }
+        
+    }
+    
+    // Call this method to activate a specific level
+    public void SelectLevel(int levelIndex)
+    {
+        // Loop through all the buttons and particle systems
+        for (int i = 0; i < LevelSelectedBtn.Length; i++)
+        {
+            if (i == levelIndex)
+            {
+                LevelSelectedBtn[i].interactable = false; // Disable the selected button
+                
+            }
+            else
+            {
+                LevelSelectedBtn[i].interactable = true; // Enable other buttons
+                
+            }
+        }
+
+        // Store the selected level number
+       _manager.selectedLevelNumber = levelIndex;
     }
 
     

@@ -27,6 +27,9 @@ public class PlayerPrefsSetup : MonoBehaviour
         if (!PlayerPrefs.HasKey("CurrentStar"))
             PlayerPrefs.SetInt("CurrentStar", 0);
         
+        if (!PlayerPrefs.HasKey("CurrentLevel"))
+            PlayerPrefs.SetInt("CurrentLevel", 0);
+        
 
         // Save PlayerPrefs changes immediately
         PlayerPrefs.Save();

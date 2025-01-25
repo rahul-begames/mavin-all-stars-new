@@ -12,41 +12,30 @@ using UnityEditor;
 #endif
 
 public class Manager : MonoBehaviour {
-
-    [Header("Scene Settings")]
-
-    public List<GameObject> levels = new List<GameObject>();
-    public GameObject menuLevel;
-
+    
+    
     public float timeFromStartToPlay = 1.54f;
 
     [Header("Pursuer Settings")]
-
     public string pursuerGameObjName;
-
     public float pursuitTime;
     [HideInInspector]
     public float pursuitTimeLoc;
+    [HideInInspector]
+    public GameObject pursuer;
     
 
     [Header("Game Config")] 
     public float distanceCovered;
-    
-    [Header("Variables")]
-    
 
-    public Text timeScore;
-    public Text coinsScore;
-    public Text maxTimeScore;
+    [Header("Bool Variable")] 
+    public bool IsPlayPressed;
+    
 
     [Header("PlayerAnimation")] 
     public Animator charAnimator;
     public Avatar[] charAvatars;
     
-   
-
-    public Text gameOverScoreTxt;
-    public Text congratulationsTxt;
 
     [Header("LevelDets")]
     public GameObject[] mavinCharacters;
@@ -54,15 +43,13 @@ public class Manager : MonoBehaviour {
     public string[] abilityDetails;
     public GameObject selectedCharacter;
     [HideInInspector]public int selectedCharacterNumber;
-    [HideInInspector]public int selectedWorldNumber; 
-    
-    
+    public int selectedLevelNumber;
+    public GameObject[] levelGo;
+    public List<GameObject> levels = new List<GameObject>();
+    public GameObject menuLevel;
     
     public Player player;
-    [HideInInspector]
-    public GameObject pursuer;
-    [HideInInspector]
-    public bool play;
+    
 
     protected Vector3 cameraPos;
     protected Quaternion cameraRot;
@@ -75,9 +62,6 @@ public class Manager : MonoBehaviour {
 
     [HideInInspector]
     public float startPlayerSpeed;
-
-    protected int t;
-    
     
 
     [Header("CinemachineCameras")] 
@@ -127,9 +111,10 @@ public class Manager : MonoBehaviour {
         
         
         SetInitialUIValues();
-
+        
         
         SetCharacter();
+        SetLevel();
 
         CreateMenuScene();
         
@@ -190,7 +175,6 @@ public class Manager : MonoBehaviour {
 
         #endregion
         
-        
     }
     
     
@@ -214,6 +198,22 @@ public class Manager : MonoBehaviour {
         //set character avatar
         charAnimator.avatar = charAvatars[selectedCharacterNumber];
 
+    }
+
+    void SetLevel()
+    {
+        selectedLevelNumber = PlayerPrefs.GetInt("CurrentLevel");
+        
+        levels.Clear(); 
+
+        // Get all child objects of the selected level parent
+        Transform selectedLevelParent = levelGo[selectedLevelNumber].transform;
+
+        foreach (Transform child in selectedLevelParent)
+        {
+            levels.Add(child.gameObject); // Add each child GameObject to the list
+        }
+        
     }
     
    
@@ -252,7 +252,7 @@ public class Manager : MonoBehaviour {
         uiManager.GameUIDTSetup();
         
         pursuitTimeLoc = pursuitTime;
-        play = true;
+        IsPlayPressed = true;
         
         
         Invoke("StopCameraLerp", 0.05f);
@@ -340,7 +340,22 @@ public class Manager : MonoBehaviour {
         
     }
 
-    public void NewCharacterLevel()
+    public void SwitchLevel()
+    {
+        levels.Clear(); 
+
+        // Get all child objects of the selected level parent
+        Transform selectedLevelParent = levelGo[selectedLevelNumber].transform;
+
+        foreach (Transform child in selectedLevelParent)
+        {
+            levels.Add(child.gameObject); // Add each child GameObject to the list
+        }
+        
+        PlayerPrefs.SetInt("CurrentLevel",selectedLevelNumber);
+    }
+
+    public void SwitchCharacter()
     {
         foreach (GameObject go in uiManager.characterSelectionGO)
         {
