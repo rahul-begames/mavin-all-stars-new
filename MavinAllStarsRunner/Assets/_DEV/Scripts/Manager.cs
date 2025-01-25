@@ -24,7 +24,7 @@ public class Manager : MonoBehaviour {
     
 
     [Header("Game Config")] 
-    public float distanceCovered;
+    public float currentDistanceCovered;
 
     [Header("Bool Variable")] 
     public bool bIsPlayPressed;
@@ -253,6 +253,7 @@ public class Manager : MonoBehaviour {
         
         StartCoroutine(DelayPlayGame());
         
+        
         uiManager.RemoveMenuUIAddGameUI();
         
        // GamePanels.SetActive(true);
@@ -273,10 +274,33 @@ public class Manager : MonoBehaviour {
         
         pursuitTimeLoc = pursuitTime;
         bIsPlayPressed = true;
+
+        StartCoroutine(DistanceCounterSystem());
         
         
         Invoke("StopCameraLerp", 0.05f);
         cameraLerp = true;
+    }
+    
+    private IEnumerator DistanceCounterSystem()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            if (bIsPlayPressed)
+            {
+                currentDistanceCovered++;
+                uiManager.currentDistanceTXT.text = currentDistanceCovered.ToString() + " m ";
+
+
+                if (currentDistanceCovered > PlayerPrefs.GetFloat("TopRun", 0))
+                {
+                    uiManager.topRunTXT.text = currentDistanceCovered.ToString() + " m ";
+                    PlayerPrefs.SetFloat("TopRun", currentDistanceCovered);
+                }
+            }
+        }
     }
 
     private void Update()

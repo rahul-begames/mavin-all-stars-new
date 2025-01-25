@@ -114,6 +114,8 @@ public class FortuneWheelManager : MonoBehaviour
 
 	private void TurnWheel (bool isFree)
 	{
+		PlayAndStopRouletteSFX(4.2f);
+		
 		_currentLerpRotationTime = 0f;
 
 		// All sectors angles
@@ -201,13 +203,14 @@ public class FortuneWheelManager : MonoBehaviour
 			}
 		}
 
-		PlayAndStopRouletteSFX(4.2f);
+		//PlayAndStopRouletteSFX(4.2f);
 	}
 	
 	public void PlayAndStopRouletteSFX(float delay)
 	{
 		// Start playing the audio
 		_audioManager.soundAudioSource[0].Play();
+		Debug.Log("PLaying souncd");
 
 		// Start a coroutine to stop the audio after the specified delay
 		StartCoroutine(StopRouletteSFXAfterDelay(delay));
@@ -219,7 +222,8 @@ public class FortuneWheelManager : MonoBehaviour
 		yield return new WaitForSeconds(delay);
 
 		// Stop the audio after the delay
-		//TODO : GameManager.Instance._AudioFiles.RouletteSFX.Stop();
+		_audioManager.soundAudioSource[0].Stop();
+		
 	}
 
 	public Button rewardedAdBtn;

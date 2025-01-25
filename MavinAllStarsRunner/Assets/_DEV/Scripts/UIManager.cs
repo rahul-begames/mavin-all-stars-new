@@ -45,6 +45,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI mavinTXT;
     public TextMeshProUGUI healthTXT;
     public TextMeshProUGUI coinTXT;
+    public TextMeshProUGUI topRunMenuTXT;
 
     [Header("DOTweenUI Animations")] 
     public Transform[] LHSMenu;
@@ -155,9 +156,10 @@ public class UIManager : MonoBehaviour
     {
         //TODO : setup values using player prefs
         mavinGameTXT.text = 0.ToString();
-        healthGameTXT.text = 0.ToString();
+        healthGameTXT.text = (PlayerPrefs.GetInt("HealthValue", 3) + 1).ToString();
         coinGameTXT.text = 0.ToString();
-        topRunTXT.text = 0.ToString();
+        topRunTXT.text = PlayerPrefs.GetFloat("TopRun", 0).ToString() + "m";
+        topRunMenuTXT.text = PlayerPrefs.GetFloat("TopRun", 0).ToString() + "m";
         currentDistanceTXT.text = 0.ToString();
         
     }

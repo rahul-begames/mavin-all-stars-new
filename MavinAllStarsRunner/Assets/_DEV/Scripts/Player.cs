@@ -479,6 +479,7 @@ public class Player : MonoBehaviour {
         
         dead = true;
         m_IsGrounded = true;
+        manager.bIsPlayPressed = false;
         anim.SetBool("GameOver", true);
         
         manager.Crashed();

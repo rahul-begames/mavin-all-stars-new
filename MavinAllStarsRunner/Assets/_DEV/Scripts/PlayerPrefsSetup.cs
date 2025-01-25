@@ -30,7 +30,9 @@ public class PlayerPrefsSetup : MonoBehaviour
         if (!PlayerPrefs.HasKey("CurrentLevel"))
             PlayerPrefs.SetInt("CurrentLevel", 0);
         
-
+        if (!PlayerPrefs.HasKey("TopRun"))
+            PlayerPrefs.SetFloat("TopRun", 0);
+        
         // Save PlayerPrefs changes immediately
         PlayerPrefs.Save();
         
