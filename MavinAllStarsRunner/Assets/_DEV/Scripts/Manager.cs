@@ -1,14 +1,12 @@
-﻿using System;
+﻿
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using DG.Tweening;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
+
 #if UNITY_EDITOR
-using UnityEditor;
+
 #endif
 
 public class Manager : MonoBehaviour {
@@ -29,8 +27,13 @@ public class Manager : MonoBehaviour {
     public float distanceCovered;
 
     [Header("Bool Variable")] 
-    public bool IsPlayPressed;
-    
+    public bool bIsPlayPressed;
+    public bool bIsVehicleModeActive;
+    public bool bIsVehicleModeRunning;
+
+    [Header("ParticleSystems")] 
+    public ParticleSystem VehicleModeTransitionPS;
+    public ParticleSystem OtherTransitionPS;
 
     [Header("PlayerAnimation")] 
     public Animator charAnimator;
@@ -62,13 +65,17 @@ public class Manager : MonoBehaviour {
 
     [HideInInspector]
     public float startPlayerSpeed;
-    
+
+    [Header("CarModeVariables")] 
+    public GameObject[] allVehicles;
+    public int selectedVehicle;
 
     [Header("CinemachineCameras")] 
     public CinemachineVirtualCamera DefaultCam_CM;
     public CinemachineVirtualCamera DeathCam_CM;
     public CinemachineVirtualCamera SlideCam_CM;
     public CinemachineVirtualCamera PreRunCam_CM;
+    public CinemachineVirtualCamera CarModeCam_CM;
 
     public UIManager uiManager;
     public AudioManager audioManager;
@@ -117,8 +124,10 @@ public class Manager : MonoBehaviour {
         SetLevel();
 
         CreateMenuScene();
-        
-      
+
+        SetInitialCarMode();
+
+
     }
     
     
@@ -215,7 +224,15 @@ public class Manager : MonoBehaviour {
         }
         
     }
-    
+
+
+    void SetInitialCarMode()
+    {
+        foreach (var vehicle in allVehicles)
+        {
+            vehicle.SetActive(false);
+        }
+    }
    
 
     public virtual void Play()
@@ -252,7 +269,7 @@ public class Manager : MonoBehaviour {
         uiManager.GameUIDTSetup();
         
         pursuitTimeLoc = pursuitTime;
-        IsPlayPressed = true;
+        bIsPlayPressed = true;
         
         
         Invoke("StopCameraLerp", 0.05f);
@@ -556,4 +573,129 @@ public class Manager : MonoBehaviour {
     }
 
     #endregion
+
+    public void CarModeActive()
+    {
+        //TODO : check if ability counter is above a certain level
+
+        StartCoroutine(ActivateCarMode());
+    }
+
+    IEnumerator ActivateCarMode()
+    {
+        //seperate swipe mode activate for it or phone gesture
+        bIsVehicleModeRunning = true;
+        
+        //play particle system transition one
+        VehicleModeTransitionPS.Play();
+        
+        //activate vehicle 
+        allVehicles[selectedVehicle].SetActive(true);
+        
+        if (selectedVehicle == 0)
+        {
+            //vehicle collider
+            //selectedPlayer.GetComponent<CapsuleCollider>().radius = 0.52f;
+            
+            //speed increase based on vehicle
+            player.speed += 5;
+            
+            //camera switch
+            if (DefaultCam_CM != null)
+                if (CarModeCam_CM != null)
+                    CinemachineExtensionClass.SwitchCineCamera(DefaultCam_CM,CarModeCam_CM);
+            
+            //change player animation respective to the vehicle
+            if(selectedVehicle == 0)
+                selectedCharacter.SetActive(false);
+        }
+
+
+
+
+        #region GameFeel
+
+        //vigneete effect
+        /*if (postProcessVolume.profile.TryGetSettings<Vignette>(out vignette))
+        {
+            // Set initial intensity (optional)
+            vignette.intensity.Override(0f);
+
+            // Smoothly increase the intensity to 0.595f over 1 second
+            DOTween.To(() => vignette.intensity.value,
+                    x => vignette.intensity.Override(x),
+                    0.595f, 1f)
+                .SetEase(Ease.InOutQuad);
+        }*/
+        
+        //car sound effects and other haptics like vibration
+        
+        //fireworks
+        /*levelParticleEffects.firework1.Play();
+        levelParticleEffects.firework2.Play();*/
+        
+        //flying ps
+        /*levelParticleEffects.flyingeffect_2.Play();
+        var emission = levelParticleEffects.flyingeffect_2.emission;
+        emission.rateOverTime = 12;*/
+        
+        /*DOTween.To(() => polyverseSkies.timeOfDay, x => polyverseSkies.timeOfDay = x, 1, 80f).OnComplete(() =>
+       {
+           DOTween.To(() => polyverseSkies.timeOfDay, x => polyverseSkies.timeOfDay = x, 0, 80f);
+       });*/
+
+        #endregion
+
+        #region UI
+
+        //gyro tutorial
+        //UIManager.Instance.GyroReminder_Tutorial.SetActive(true);
+        
+        
+
+        #endregion
+
+
+
+
+        #region General
+
+        //disable obstacles all over the level
+
+        
+        //add coins only
+        
+        // remove ability pickups also
+        
+        //disable ability and car btn
+        uiManager.VehicleModeBtn.interactable = false;
+        
+        //for showing timer do it on the button as a clockwise image thing
+        #endregion
+
+        //uiManager.VehicleModeTimerImage.GetComponent<UIShiny>().enabled = true;
+        if (uiManager.VehicleModeTimerImage != null)
+        {
+            for (int i = 0; i < uiManager.VehicleModeTimerImage.Length; i++)
+            {
+                uiManager.VehicleModeTimerImage[i].DOFillAmount(0, 10f)
+                    .SetEase(Ease.Linear)
+                    .OnComplete(() =>
+                    {
+                        Debug.Log("Tween Completed for index " + i);
+                    });
+            }
+        }
+
+
+        yield return new WaitForSeconds(10f);
+        
+        /* Exit Car Mode */
+        
+
+
+        
+
+    
+    }
 }

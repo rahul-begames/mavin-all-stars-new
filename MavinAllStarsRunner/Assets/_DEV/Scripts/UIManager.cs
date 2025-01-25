@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
+
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -71,6 +69,7 @@ public class UIManager : MonoBehaviour
     [Header("All UI Panels")]
     public Transform MenuUIPanel;
     public Transform GameUIPanel;
+    public Transform MainGameUIPanel;
     public Transform ReviveUIPanel;
     public Transform TopBGPanel;
     public Transform ObjectiveUIPanel;
@@ -80,6 +79,10 @@ public class UIManager : MonoBehaviour
     public Image crashScreen;
     public Button noThanksBtns;
     public Button getUpWithHeartsBtn;
+
+    [Header("Vehicle Mode Variables")] 
+    public Button VehicleModeBtn;
+    public Image[] VehicleModeTimerImage;
     
 
     private void Start()
@@ -382,7 +385,7 @@ public class UIManager : MonoBehaviour
         
         LHSGame.DOMoveX(-3000, 0f).SetEase(Ease.InOutQuad).SetRelative(true);
         RHSGame.DOMoveX(3000, 0f).SetEase(Ease.InOutQuad).SetRelative(true);
-        CentreGame.DOMoveX(-3000, 0f).SetEase(Ease.InOutQuad).SetRelative(true);
+        CentreGame.DOMoveY(3000, 0f).SetEase(Ease.InOutQuad).SetRelative(true);
         
         foreach (Transform menu in LHSMenu)
         {
@@ -412,10 +415,11 @@ public class UIManager : MonoBehaviour
         {
             ObjectiveUIPanel.gameObject.SetActive(false);
             GameUIPanel.gameObject.SetActive(true);
+            MainGameUIPanel.gameObject.SetActive(true);
             
             LHSGame.DOMoveX(3000, 0.8f).SetEase(Ease.InOutQuad).SetRelative(true);
-            RHSGame.DOMoveX(-3000, 0.58f).SetEase(Ease.InOutQuad).SetRelative(true);
-            CentreGame.DOMoveX(3000, 0.8f).SetEase(Ease.InOutQuad).SetRelative(true);
+            RHSGame.DOMoveX(-3000, 0.8f).SetEase(Ease.InOutQuad).SetRelative(true);
+            CentreGame.DOMoveY(-3000, 0.8f).SetEase(Ease.InOutQuad).SetRelative(true);
         });
         
         

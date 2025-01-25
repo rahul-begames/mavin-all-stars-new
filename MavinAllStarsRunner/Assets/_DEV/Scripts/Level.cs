@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class Level : MonoBehaviour {
@@ -21,7 +20,7 @@ public class Level : MonoBehaviour {
 
     protected virtual void Update ()
     {
-        if (loadNextLevel && manager.IsPlayPressed)
+        if (loadNextLevel && manager.bIsPlayPressed)
         {
             if (thisTransform.position.z - player.position.z < distanceToPlayerForLoad)
             {

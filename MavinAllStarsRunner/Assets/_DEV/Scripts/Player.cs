@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using DG.Tweening;
-using UnityStandardAssets.CrossPlatformInput;
-using UnityEngine.UI;
+
 
 public class Player : MonoBehaviour {
 
@@ -231,7 +229,7 @@ public class Player : MonoBehaviour {
 
     protected virtual void Update()
     {
-        if (!dead && manager.IsPlayPressed && !manager.cameraLerp && Time.timeScale != 0)
+        if (!dead && manager.bIsPlayPressed && !manager.cameraLerp && Time.timeScale != 0)
         {
             if (Time.timeScale != 0)
             {
@@ -442,7 +440,7 @@ public class Player : MonoBehaviour {
 
     protected virtual void FixedUpdate()
     {
-        if (!dead && manager.IsPlayPressed)
+        if (!dead && manager.bIsPlayPressed)
         {
             if(!m_IsGrounded)
             {
@@ -471,7 +469,7 @@ public class Player : MonoBehaviour {
 
             manager.cameraTransform.position = Vector3.Lerp(manager.cameraTransform.position, new Vector3(thisTransform.position.x, thisTransform.position.y + cameraPosition.y, thisTransform.position.z + cameraPosition.z), cameraSpeed);*/
         }
-        if (manager.IsPlayPressed)
+        if (manager.bIsPlayPressed)
         {
             if (!manager.cameraLerp)
             {                                
