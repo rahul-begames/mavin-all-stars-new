@@ -78,6 +78,7 @@ public class Manager : MonoBehaviour {
 
     public UIManager uiManager;
     public AudioManager audioManager;
+    public LoadingScreenManager loadingScreenManager;
     /// <summary>
 	/// Deactivate all active levels on scene
 	/// </summary>
@@ -469,7 +470,8 @@ public class Manager : MonoBehaviour {
 
     public void RestartGame()
     {
-        
+        if(loadingScreenManager)
+            loadingScreenManager.LoadScene("GameScene");
     }
 
     public void ReturnToMenu()
